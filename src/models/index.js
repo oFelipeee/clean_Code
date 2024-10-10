@@ -1,19 +1,19 @@
-const fs = require('fs');
-const path = require("path");
+const fs = require('fs'); // File System
+const path = require('path'); // Caminho
 const sequelize = require('../config/database');
 
 const db = [];
 
-// dir - Lista os arquivos do diretorio
-fs.readdir(__dirname)
-    .filter(file => file !== 'index.js')
-    .foreach(file => {
-        // Capturando cada arquivo individualmente
+// dir -> Listar os arquivos do diretorio
+fs.readdirSync(__dirname)
+    .filter(file => file !== 'index.js') // user.js
+    .forEach(file => {
+        // capturando cada arquivo individualmente
         const model = require(path.join(__dirname, file));
-        // db [user] = Modelo user
+        // db [ user ] = Modelo User;
         db[model.name] = model;
-    })
+    });
 
-    sequelize.sync();
+sequelize.sync();
 
-    module.exports = { sequelize, ...db};
+module.exports = { sequelize, ...db };
