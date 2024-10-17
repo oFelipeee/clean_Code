@@ -1,18 +1,19 @@
 const { Router } = require("express");
 const userController = require('../controller/userController');
 const router = Router();
+const { validateUser, validateUserId } = require("../middlewares/validateUser")
 
 // Funcao de criar
-router.post('/', userController.create);
+router.post('/', validateUser, userController.create);
 
 // Funcao de editar
-router.put('/:id', userController.update);
+router.put('/:id',validateUser, validateUserId, userController.update);
 
 // Funcao de deletor
-router.delete('/:id', userController.delete);
+router.delete('/:id', validateUserId, userController.delete);
 
 // Funcao de buscar unico
-router.get('/:id', userController.getOne);
+router.get('/:id', validateUserId, userController.getOne);
 
 // Funcao de buscar todos
 router.get('/:id', userController.getAll);
