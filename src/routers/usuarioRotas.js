@@ -7,7 +7,7 @@ const { validateUser, validateUserId } = require("../middlewares/validateUser")
 router.post('/', validateUser, userController.create);
 
 // Funcao de editar
-router.put('/:id',validateUser, validateUserId, userController.update);
+router.put('/:id', validateUser, validateUserId, userController.update);
 
 // Funcao de deletor
 router.delete('/:id', validateUserId, userController.delete);
