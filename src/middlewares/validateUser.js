@@ -1,29 +1,37 @@
 const validateUser = (req, res, next) => {
     const { nome, email } = req.body;
 
-    if (!nome || typeof nome !== 'string') {
-        return res.status(400).json({ msg: 'Campos inválidos' });
+    if (!nome || typeof nome !== "string") {
+        return res.status(404).json({
+            msg: "Por favor, passe valores válidos...",
+        });
     }
 
-    if (!email || typeof email !== 'string') {
-        return res.status(400).json({ msg: 'Campos inválidos' });
+    if (!email || typeof email !== "string") {
+        return res.status(400).json({
+            msg: "Por favor passe valores válidos...",
+        });
     }
 
     if (!(email.includes("@") && email.includes("."))) {
-        return res.status(400).json({ msg: 'Campo email invalido' });
+        return res.status(400).json({
+            msg: "O email deve estar com formatação válida...",
+        });
     }
 
-    next(); // retornar o next, para prosseguir na função
-}
+    next();
+};
 
 const validateUserId = (req, res, next) => {
     const { id } = req.params;
 
     if (!id || typeof id !== "string") {
-        return res.status(400).json({ msg: 'Parametro ID inválido' });
+        return res.status(400).json({
+            msg: "ID não encontrado ou inválido...",
+        });
     }
 
-    next();
-}
+    return next();
+};
 
 module.exports = { validateUser, validateUserId };

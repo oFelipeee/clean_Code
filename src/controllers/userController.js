@@ -1,11 +1,11 @@
-const userService = require("../services/userService");
+const userService = require("../services/useService");
 
-const adminController = {
+const userController = {
   create: async (req, res) => {
     try {
       const user = await userService.create(req.body);
       return res.status(200).json({
-        msg: "Admin criado com sucesso!",
+        msg: "Usuário criado com sucesso!",
         user,
       });
     } catch (error) {
@@ -19,17 +19,17 @@ const adminController = {
       const user = await userService.update(req.params.id, req.body);
       if (!user) {
         return res.status(400).json({
-          msg: "Admin não encontrado",
+          msg: "User não encontrado",
         });
       }
 
       return res.status(200).json({
-        msg: "Admin atualizado com sucesso!",
+        msg: "Usuário atualizado com sucesso!",
         user,
       });
     } catch (error) {
       return res.status(500).json({
-        msg: "Erro ao atulizar o Admin",
+        msg: "Erro ao atulizar o User",
       });
     }
   },
@@ -38,7 +38,7 @@ const adminController = {
       const user = await userService.getAll();
       if (!user) {
         return res.status(404).json({
-          msg: "Nenhum Admin encontrado!",
+          msg: "Nenhum User encontrado!",
         });
       }
       return res.status(200).json({
@@ -57,11 +57,11 @@ const adminController = {
 
       if (!user) {
         return res.status(404).json({
-          msg: "Admin não encontrado!",
+          msg: "Usuário não encontrado!",
         });
       }
       return res.status(200).json({
-        msg: "Admin encontrado!",
+        msg: "Usuário encontrado!",
       });
     } catch (error) {
       return res.status(500).json({
@@ -89,26 +89,4 @@ const adminController = {
   },
 };
 
-const AuthAdmin = {
-  sigIn: async (req, res) => {
-    const { email, senha } = req.body;
-
-    if (!email.includes("@" && email.includes("."))) {
-      return res.status(400).json({
-        msg: "Por favor, digite um email válido...",
-      });
-    }
-
-    if (senha <= 6 || typeof senha !== "string") {
-      return res.status(400).json({
-        msg: "Por favor, digite uma senha maior que 6 digítos...",
-      });
-    }
-
-    return res.status(200).json({
-      msg: "Admin Criado com sucesso!",
-    });
-  },
-};
-
-module.exports = adminController;
+module.exports = userController;

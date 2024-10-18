@@ -1,28 +1,27 @@
-require('dotenv').config(); // Arquivo => .env
-const express = require('express');
-const { sequelize } = require('./models');
-const routes = require('./routers/router')
+require("dotenv").config();
+const express = require("express");
+const { sequelize } = require("./model");
+const router = require("./routers/router");
 
-const app = express(); // Iniciando servidor
+const app = express();
 
-app.use(express.json()); // Resposta via JSON
-// process.env ? PORT : 3000
+app.use(express.json());
 
-app.use('/api', routes);
+app.use("/api", router);
 
-sequelize.authenticate()
+sequelize
+    .authenticate()
     .then(() => {
-        console.log("Conexao com o banco de dados deu certo");
+        console.log("Conexão com o banco de dados realizado com sucesso!!");
     })
-    .catch(err => {
-        console.error("Erro ao conectar no banco: ", err);
+    .catch((error) => {
+        console.error("Erro ao se conectar ao banco: ", error);
     });
 
 const PORT = process.env.PORT || 3000;
-// Listen -> Ouvir
-// Ouvindo na possivel ou na porta 3000;
+
 app.listen(PORT, () => {
-    console.log('-------------------------');
+    console.log("=====================");
     console.log(`Running on http://${PORT}`);
-    console.log('-------------------------');
+    console.log("=====================");
 });
