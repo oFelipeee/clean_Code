@@ -1,29 +1,32 @@
-const validateUser = (req, res, next) => {
+const validadeAdmin = (req, res, next) => {
 
-    const { nome, email } = req.body;
+    const { nome, email, senha } = req.body;
 
-    if(!nome || typeof nome !== 'string') {
+    if(!nome || typeof nome !== 'string'){
         return res.status(400).json({
             msg:'Campos inválidos'
         });
     }
-
     if(!email || typeof email !== 'string'){
         return res.status(400).json({
             msg:'Campos inválidos'
         });
     }
-
     if(!(email.includes('@') && email.includes('.'))){
         return res.status(400).json({
             msg:'Campo email inválido'
         })
     }
+    if(!senha || typeof senha !== 'string'){
+        return res.status(400).json({
+            msg:'Campos inválidos'
+        });
+    }
 
     next();
 }
 
-const validateUSerId = (req, res, next) => {
+const validadeAdminId = (req, res, next) => {
     const { id } = req.params;
 
     if(!id|| typeof id!== 'string') {
@@ -35,4 +38,4 @@ const validateUSerId = (req, res, next) => {
     next();
 }
 
-module.exports = { validateUser, validateUSerId };
+module.exports = { validadeAdmin, validadeAdminId };
